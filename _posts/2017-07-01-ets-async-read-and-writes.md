@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      Pixyll has Pagination
-title:      Quick Commit: ETS - Async Reads & Writes
+title:      ETS - Async Reads & Writes
 date:       2014-06-08 11:21:29
 summary:    This post goes through how to build a basic async cache in elixir
 categories: elixir ets

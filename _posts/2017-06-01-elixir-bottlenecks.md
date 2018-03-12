@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      Quick Commit: Quickly See which processes are hogging CPU
+title:      Quickly See which processes are hogging CPU
 date:       2014-06-08 11:21:29
 summary:    Tips and tools for determining bottlenecks in an Elixir application.
 categories: elixir performance
