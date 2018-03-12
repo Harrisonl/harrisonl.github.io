@@ -12,7 +12,7 @@ ETS is an exceptional tool that I feel is greatly under-used in the Elixir world
 
 [This talk](https://www.youtube.com/watch?v=D3IftRUQgqc) by Claudio from Erlang-Solutions highlights a very good implementation for achieving concurrent reads as well as sequential-concurrent writes with ETS.
 
-```elixir
+{% highlight elixir %}
 defmodule Cache do
   use GenServer
 
@@ -42,7 +42,7 @@ defmodule Cache do
     {:noreply, state}
   end
 end
-```
+{% endhighlight %}
 
 Since we have `:public` and `:read_concurrency` set in our table options, **we have the ability to offload the reading of the ETS data to the calling process**, allowing the `Cache` genserver to focus on inserting only.
 
@@ -54,14 +54,14 @@ These objects contain a tracking counter key of some sort.
 
 Let's that during these writes, a request comes in to increment counter `:foo`. So, something like this might happen:
 
-```elixir
+{% highlight elixir %}
 iex> foo = Cache.get(:foo)
 iex> foo.counter
 # => 10
 iex> foo = %Struct{foo | counter: foo.counter + 1}
 # => %Struct{counter: 11..}
 iex> Cache.set(:foo, foo)
-```
+{% endhighlight %}
 
 Nothing wrong with this - it all looks fine. The problem occurs when you look at what already is in the `Cache` mailbox.
 

@@ -19,7 +19,7 @@ A simple way to:
 a) Figure which process is causing this
 b) Figure out what the hell is going on with the process
 
-```elixir
+{% highlight elixir %}
 iex> Process.list
 |> Enum.map(&{Process.info(&1, :reductions), &1})
 |> Enum.take(5)
@@ -28,11 +28,11 @@ iex> Process.list
 # => {{:reductions, 2345}, #PID<0.24.0>}
 # => {{:reductions, 232}, #PID<0.62.0>}
 # => {{:reductions, 123}, #PID<0.58.0>}
-```
+{% endhighlight %}
 
 Here we can clearly tell that `#PID<0.82.0>` has gone through quite a few reductions (method calls). This is pretty obviously our culprit process. Let's do some more digging and see what's going on here:
 
-````elixir
+{% highlight elixir %}
 # pid = #PID<0.82.0>
 iex> :dbg.tracer
 iex> :dbg.p(pid, [:call]) # trace calls
@@ -40,14 +40,14 @@ iex> :dbg.tpl(:_, []); :timer.sleep(1000); :dbg.stop();
 
 # => call 'Elixir.Module.Function' :method(arg1, arg2..)
 # => call 'Elixir.Module.Function' :method(arg1+2, arg2..)
-````
+{% endhighlight %}
 
 Now we can see exactly what is going on in this process and which functions are being called (and with what arguments).
 
 Hopefully this is enough information for us to go away and fix the bug - but unfortunately, this process is still alive and recursing, so we need to take care of that first.
 
-````elixir
+{% highlight elixir %}
 iex> Process.exit(pid, :kill) # similar to kill -9
-````
+{% endhighlight %}
 
 Now ideally you wouldn't actually want to have to do this in a live environment however, it's nice to know the ability is there!
