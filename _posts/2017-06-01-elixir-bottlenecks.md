@@ -19,7 +19,7 @@ A simple way to:
 a) Figure which process is causing this
 b) Figure out what the hell is going on with the process
 
-{% highlight elixir %}
+{% highlight ruby lineanchors %}
 iex> Process.list
 |> Enum.map(&{Process.info(&1, :reductions), &1})
 |> Enum.take(5)
