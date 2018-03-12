@@ -19,15 +19,17 @@ A simple way to:
 a) Figure which process is causing this
 b) Figure out what the hell is going on with the process
 
-{% highlight ruby lineanchors %}
+{% highlight elixir %}
 iex> Process.list
 |> Enum.map(&{Process.info(&1, :reductions), &1})
 |> Enum.take(5)
+{% raw %}
 # => {{:reductions, 301203128421}, #PID<0.82.0>}
 # => {{:reductions, 292424}, #PID<0.32.0>}
 # => {{:reductions, 2345}, #PID<0.24.0>}
 # => {{:reductions, 232}, #PID<0.62.0>}
 # => {{:reductions, 123}, #PID<0.58.0>}
+{% endraw %}
 {% endhighlight %}
 
 Here we can clearly tell that `#PID<0.82.0>` has gone through quite a few reductions (method calls). This is pretty obviously our culprit process. Let's do some more digging and see what's going on here:
